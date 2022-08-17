@@ -13,7 +13,7 @@ type Stats struct {
 	elapsed  int64
 }
 
-type response struct {
+type Response struct {
 	Total   int64 `json:"total"`
 	Average int64 `json:"average"`
 }
@@ -39,7 +39,7 @@ func (s *Stats) JSON() ([]byte, error) {
 	if s.requests > 0 {
 		avg = s.elapsed / s.requests
 	}
-	res := response{
+	res := Response{
 		Total:   s.requests,
 		Average: avg,
 	}

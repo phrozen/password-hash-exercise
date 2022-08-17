@@ -28,12 +28,12 @@ func TestStats(t *testing.T) {
 	}
 	// Create a sample response object for
 	// comparison with data from above loop
-	want := response{
+	want := Response{
 		Total:   s.requests,
 		Average: s.elapsed / s.requests,
 	}
 	// Get the JSON and Unmarshal for compare
-	have := response{}
+	have := Response{}
 	data, err := s.JSON()
 	equal(t, true, err == nil)
 	err = json.Unmarshal(data, &have)
