@@ -16,3 +16,24 @@ type Service interface {
 	// in real life this closes databases, files, etc...
 	Close() error
 }
+
+// MockService for testing purposes, modify as needed
+type MockService struct {
+	quit chan bool
+}
+
+func NewMockService() *MockService {
+	return &MockService{quit: make(chan bool)}
+}
+
+func (s *MockService) Handler() http.Handler {
+	return http.NewServeMux()
+}
+
+func (s *MockService) Shutdown() chan bool {
+	return s.quit
+}
+
+func (s *MockService) Close() error {
+	return nil
+}
