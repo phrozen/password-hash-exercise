@@ -56,6 +56,9 @@ func NewMemory(delay time.Duration) *Memory {
 
 // Get returns the value at index id or an error otherwise
 func (m *Memory) Get(id int) ([]byte, error) {
+	// [FIX] Use the mutex to avoid reading on concurrent writes
+	m.Lock()
+	defer m.Unlock()
 	if val, ok := m.data[id]; ok {
 		return val, nil
 	}
