@@ -22,7 +22,6 @@ type Memory struct {
 // specially for testing as we avoid mocking.
 func NewMemory(delay time.Duration) *Memory {
 	return &Memory{
-		count: -1,
 		data:  make(map[int][]byte),
 		delay: delay,
 	}

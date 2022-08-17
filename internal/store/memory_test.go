@@ -23,7 +23,7 @@ func equal(t *testing.T, want, have any) {
 func TestSetGet(t *testing.T) {
 	store := NewMemory(0)
 	defer store.Close()
-	for i := 0; i < 100; i++ {
+	for i := 1; i <= 100; i++ {
 		input := []byte(fmt.Sprintf("%d", i))
 		index, err := store.Set(input)
 		equal(t, err, nil)
@@ -31,7 +31,7 @@ func TestSetGet(t *testing.T) {
 		// Even with 0 delay, scheduler needs time for
 		// context switching, 1ms should be enough
 		// but we use higher values for slow machines
-		time.Sleep(10 * time.Millisecond)
+		time.Sleep(25 * time.Millisecond)
 		output, err := store.Get(i)
 		equal(t, err, nil)
 		equal(t, 0, bytes.Compare(input, output))
@@ -45,16 +45,16 @@ func TestDelay(t *testing.T) {
 	input := []byte("test")
 	index, err := store.Set(input)
 	equal(t, err, nil)
-	equal(t, index, 0)
+	equal(t, index, 1)
 	// Expect index not to be there yet
 	output, err := store.Get(index)
 	equal(t, true, err != nil)
 	equal(t, 0, bytes.Compare([]byte(nil), output))
 	// Wait more than delay...if it fails...
 	// try larger value on slow machines
-	time.Sleep(110 * time.Millisecond)
+	time.Sleep(125 * time.Millisecond)
 	// Expect index to be there
 	output, err = store.Get(index)
-	equal(t, err, nil)
+	equal(t, nil, err)
 	equal(t, 0, bytes.Compare(input, output))
 }

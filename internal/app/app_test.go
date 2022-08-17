@@ -24,7 +24,7 @@ func equal(t *testing.T, want, have any) {
 // Test with random input sizes and data, assert the resulting
 // hash is always the expected length, regardless of input.
 func TestHash(t *testing.T) {
-	app := New(nil)
+	app := &App{} // avoid Shutdown
 	for i := 0; i < 100; i++ {
 		password := make([]byte, rand.Intn(64)+1)
 		rand.Read(password)
@@ -37,7 +37,8 @@ func TestHash(t *testing.T) {
 // just in case more Stores are added for comparison
 func TestSetGet(t *testing.T) {
 	app := New(store.NewMemory(0))
-	for i := 0; i < 100; i++ {
+	defer app.Shutdown()
+	for i := 1; i <= 100; i++ {
 		input := fmt.Sprintf("password-%d", i)
 		index, err := app.SetHash(input)
 		equal(t, err, nil)
@@ -55,7 +56,7 @@ func TestSetGet(t *testing.T) {
 // Shows consistent performance up to 64 byte inputs (common use case)
 // Implementation has consistent allocs and memory usage (deterministic)
 func BenchmarkHash(b *testing.B) {
-	app := New(nil)
+	app := &App{} // avoid Shutdown
 	for s := 8; s <= 1024; s = s << 1 {
 		password := make([]byte, s)
 		rand.Read(password)
