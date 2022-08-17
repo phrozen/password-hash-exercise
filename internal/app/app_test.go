@@ -37,7 +37,7 @@ func TestHash(t *testing.T) {
 // just in case more Stores are added for comparison
 func TestSetGet(t *testing.T) {
 	app := New(store.NewMemory(0))
-	defer app.Shutdown()
+	defer app.Close()
 	for i := 1; i <= 100; i++ {
 		input := fmt.Sprintf("password-%d", i)
 		index, err := app.SetHash(input)

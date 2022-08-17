@@ -29,8 +29,8 @@ func (app *App) SetHash(password string) (int, error) {
 	return app.store.Set(hash)
 }
 
-// Shutdown runs all tear down operations like closing the Store
-func (app *App) Shutdown() error {
+// Close runs all tear down operations like closing the Store
+func (app *App) Close() error {
 	return app.store.Close()
 }
 
