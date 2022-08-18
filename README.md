@@ -1,3 +1,6 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/phrozen/password-hash-exercise.svg)](https://pkg.go.dev/github.com/phrozen/password-hash-exercise)
+[![Go Report Card](https://goreportcard.com/badge/github.com/phrozen/password-hash-exercise)](https://goreportcard.com/report/github.com/phrozen/password-hash-exercise)
+
 # password-hash-exercise
 
 The purpose of the exercise is to provide a service that hashes and saves passwords with SHA512. It is a small project but implemented loosely with hexagonal/clean architecture as much as possible, as to not to over enginner the solution by providing too much abstraction.
