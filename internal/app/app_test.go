@@ -31,6 +31,12 @@ func TestHash(t *testing.T) {
 		hash := app.hash(password)
 		equal(t, HASH_LENGTH, len(hash))
 	}
+	// Test for zero and nil values
+	var pass []byte
+	hash := app.hash(pass)
+	equal(t, HASH_LENGTH, len(hash))
+	hash = app.hash(nil)
+	equal(t, HASH_LENGTH, len(hash))
 }
 
 // Kinda redundant with just a single Store implementation,
